@@ -50,7 +50,7 @@ To build and run em400 you'll need:
 Build instructions
 ==========================================================================
 
-Do the following in the source directory:
+On Linux-based setups, do the following in the source directory:
 
 ```
 mkdir build
@@ -58,7 +58,27 @@ cmake -B build
 cmake --build build
 cmake --install build
 ```
+On FreeBSD/DFBSD-based setups, you should also include a compatibility shim and ensure the toolchain is configured to point at current libraries:
+```
+# Here used with GCC 15, as it is a known working version
+# On some BSDs, some dependencies of em400 are compiled with old versions of GCC by default
+# Hereby it's recommended to add a pair of RPATHs pointing to the compiler libs matching the compiler version you choose to build em400 with
 
+mkdir build
+compat="$(pwd)/src/bsd_compat.h"
+cmake -B build \
+  -DCMAKE_C_COMPILER=gcc15 \
+  -DCMAKE_CXX_COMPILER=g++15 \
+  -DCMAKE_BUILD_RPATH=/usr/local/lib/gcc15 \
+  -DCMAKE_INSTALL_RPATH=/usr/local/lib/gcc15 \
+  -DCMAKE_C_FLAGS="-include $compat" \
+  -DCMAKE_CXX_FLAGS="-include $compat"
+cmake --build build
+cmake --install build
+
+```
+In the flags, you can replace version 15 of GCC and G++ with other appropriate version. Any version with full and mature `noexcept` support should work correctly.
+Please note that G++ and GCC should have matching versions.
 
 Running
 ==========================================================================

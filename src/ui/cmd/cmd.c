@@ -31,6 +31,10 @@ typedef int socklen_t;
 #include <string.h>
 #include <unistd.h>
 
+#if defined(__FreeBSD__) || defined(__DragonFly__)
+#include <netinet/in.h>
+#endif
+
 #include "libem400.h"
 #include "appcfg.h"
 #include "ui/ui.h"

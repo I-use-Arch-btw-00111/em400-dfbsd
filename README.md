@@ -62,7 +62,7 @@ On FreeBSD/DFBSD-based setups, you should also include a compatibility shim and 
 ```
 # Here used with GCC 15, as it is a known working version
 # On some BSDs, some dependencies of em400 are compiled with old versions of GCC by default
-# Hereby it's recommended to add a pair of RPATHs pointing to the compiler libs matching the compiler version you choose to build em400 with
+# Hereby it's recommended to add a pair of RPATHs pointing to the compiler libs matching the compiler version you choose to build EM400 with
 
 mkdir build
 compat="$(pwd)/src/bsd_compat.h"
@@ -77,8 +77,9 @@ cmake --build build
 cmake --install build
 
 ```
-In the flags, you can replace version 15 of GCC and G++ with other appropriate version. Any version with full and mature `noexcept` support should work correctly.
-Please note that G++ and GCC should have matching versions.
+In the flags, you can replace version 15 of GCC and G++ with other C/C++ compiler of appropriate version. Any version with full and mature `noexcept` support should work correctly. 
+
+**NOTE: The C and C++ compiler versions should match.**
 
 Running
 ==========================================================================
